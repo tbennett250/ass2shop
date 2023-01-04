@@ -23,3 +23,13 @@
     </div>
   </div>
 </nav>
+
+<?php
+
+if(isset($_SESSION['userRole'])){
+  if($_SESSION['userRole'] = 1){
+    require_once "./components/admin-nav.php";
+}
+}
+
+?>
