@@ -34,7 +34,8 @@ class ProductController
 
     public function update(array $product) : bool
     {
-        $sql = "UPDATE users 
+        
+        $sql = "UPDATE products
                 SET name = :name, 
                     description = :description, 
                     price = :price, 
