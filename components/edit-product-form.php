@@ -1,41 +1,53 @@
-<?php 
+<?php
 
 require_once './inc/functions.php';
 
 $message = '';
 
+$SelectedProduct = $controllers->products()->get(htmlspecialchars($_SESSION['productIDGET']));
+
+
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
+
+  
 
     $name = InputProcessor::process_string($_POST['name'] ?? '');
     $description = InputProcessor::process_string($_POST['description'] ?? '');
     $price = InputProcessor::process_string($_POST['price'] ?? '');
-    $image = InputProcessor::process_file($_FILES['image'] ?? []);
+    var_dump($_FILES['image']);
+    if (isset($_FILES['image'])){
+        //if image has been selected then validate
+        $image = InputProcessor::process_file($_FILES['image'] ?? []);
+    } else{
+        //else use previous file path
+        $image['value'] = $SelectedProduct['image'];
+        $image['valid'] = true;
+    }
+    
 
     $valid =  $name['valid'] && $description['valid'] && $price['valid'] && $image['valid'];
-  
+    
     if($valid) {
 
-      $image['value'] = ImageProcessor::upload($_FILES['image']);
+      if(isset($_FILES['image']))
+        {$image['value'] = ImageProcessor::upload($_FILES['image']);}
       
-      $args = ['name' => $name['value'] , 
-              'description' => $description['value'] , 
-              'price' => $price['value'] ,
-              'image' =>  $image['value'] 
-              ];
+        $args = ['name' => $name['value'] , 
+                'description' => $description['value'] , 
+                'price' => $price['value'] ,
+                'image' =>  $image['value'],
+                'id' => $SelectedProduct['id']
+                ];
 
-      $id = $controllers->products()->create($args);
+      
 
-      if(!empty($id) && $id > 0) {
-        redirect('product', ['id' => $id]);
-      }
-      else {
-        $message = "Error adding product."; //Change
-      }
-    }
-    else {
-       $message =  "Please fix the following errors: ";
-   }
+      $controllers->products()->update($args);
+     // redirect('edit-products');
+
+
+            }
 
 } 
 
@@ -52,23 +64,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     
                 <h3 class="mb-2">Add Product</h3>
                 <div class="form-outline mb-4">
-                  <input type="text" id="name" name="name" class="form-control form-control-lg" placeholder="Name" required value="<?= htmlspecialchars($name['value'] ?? '') ?>"/>
+                  <input type="text" id="name" name="name" class="form-control form-control-lg" value="<?= $SelectedProduct['name'] ?>" required value="<?= htmlspecialchars($name['value'] ?? '') ?>"/>
                   <span class="text-danger"><?= $name['error'] ?? '' ?></span>
                 </div>
                 
                 <div class="form-outline mb-4">
-                  <input type="text" id="description" name="description" class="form-control form-control-lg" placeholder="Description" required value="<?= htmlspecialchars($description['value'] ?? '') ?>"/>
+                  <input type="text" id="description" name="description" class="form-control form-control-lg" value="<?= $SelectedProduct['description'] ?>" required value="<?= htmlspecialchars($description['value'] ?? '') ?>"/>
                   <span class="text-danger"><?= $description['error'] ?? '' ?></span>
                 </div>
     
     
                 <div class="form-outline mb-4">
-                  <input type="number" id="price" name="price" class="form-control form-control-lg" placeholder="Price" required value="<?= htmlspecialchars($price['value'] ?? '') ?>"/>
+                  <input type="number" id="price" name="price" class="form-control form-control-lg" value="<?= $SelectedProduct['price'] ?>" required value="<?= htmlspecialchars($price['value'] ?? '') ?>"/>
                   <span class="text-danger"><?= $price['error'] ?? '' ?></span>
+                </div>
+
+                <div class="form-outline mb-4">
+                    <img style="width : 80%" src="<?= $SelectedProduct['image'] ?>">
                 </div>
     
                 <div class="form-outline mb-4">
-                  <input type="file" accept="image/*" id="image" name="image" class="form-control form-control-lg" placeholder="Select Image"required />
+                  <input type="file" accept="image/*" id="image" name="image" class="form-control form-control-lg" placeholder="Change Image" />
                 </div>
     
                 <button class="btn btn-primary btn-lg w-100 mb-4" type="submit">Add Product</button>

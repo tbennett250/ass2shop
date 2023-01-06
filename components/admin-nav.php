@@ -9,7 +9,8 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
-      <a class="nav-item nav-link " href="#">Add Product</a>
+      <a class="nav-item nav-link " href="add-product.php">Add Product</a>
+      <a class="nav-item nav-link " href="product.php">Products</a>
       <a class="nav-item nav-link" href="#">Manage Users </a>
       <a class="nav-item nav-link" href="#">Manage Products</a>
       <a class="nav-item nav-link" href="#">Manage Catagories</a>

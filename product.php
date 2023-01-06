@@ -1,4 +1,6 @@
-<?php require __DIR__ . "/inc/header.php"; ?>
+<?php 
+session_start();
+require __DIR__ . "/inc/header.php"; ?>
 
 <section class="vh-100 text-center">
     <div class="container py-5 h-75">
