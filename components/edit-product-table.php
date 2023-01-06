@@ -18,6 +18,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <th>Product Name</th>
     <th>Description</th>
     <th>Price</th>
+    <th>Image</th>
+    <th> </th>
     <th> To Edit </th>
     
 </tr>
@@ -35,7 +37,10 @@ foreach ($products as $product):
         <td> <?= $product['name'];?> </td>
         <td> <?= $product['description']; ?> </td>
         <td> <?= $product['price']; ?> </td>
+        <td> <button type="button" onclick="ShowImage(<?= $product['id']; ?>)"> view image </button></td>
+        <td><img id=<?= $product['id']; ?> style="display: none;" width="150px" height="150px" src=<?= $product['image'] ?>></td>
         <input type="hidden" value="<?= $product['id'] ?>" name="productid"/>
+        
         <td> <input type="submit" name="btn" value="Edit" id="<?= $product['id'] ?>" class="btn btn-secondary" >
         </form>
     </tr>
@@ -44,3 +49,15 @@ foreach ($products as $product):
 <?php endforeach ?>
 </table>
 </div>
+
+<script>
+    function ShowImage(id){
+        var x = document.getElementById(id);
+
+        if (x.style.display == "none"){
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+            }
+</script>

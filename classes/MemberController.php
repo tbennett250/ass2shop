@@ -36,6 +36,7 @@ class MemberController
     {
         $sql = "SELECT * FROM users WHERE id = :id";
         $args = ['id' => $id];
+       
         return $this->db->runSQL($sql, $args) -> fetch();
     }
 
@@ -54,13 +55,16 @@ class MemberController
 
     public function update(array $member) : bool
     {
+        
         $sql = "UPDATE users 
-                SET firstname = :firstname, 
-                    lastname = :lastname, 
-                    password = :password, 
+                SET firstname = :firstname,
+                    lastname = :lastname,
+                    password = :password,
                     email = :email
                 WHERE id = :id;";
-        
+
+                
+    
         return $this->db->runSQL($sql, $member)->execute();
     }
 
@@ -85,6 +89,41 @@ class MemberController
         $auth = password_verify($password, $member['password']);
 
         return $auth ? $member : false;
+    }
+
+    public function DisplayUserType($id){
+        if($id === '1')
+        {
+            return "<span class='text-danger'><b> Administrator </b> </span>";
+        } else {
+            return "Standard User";
+        }
+    }
+
+    public function ChangeRole($id) {
+        
+       
+       
+        
+        $member = $this->get($id);
+
+        if ($member['userRole'] != '1'){
+
+            $sql = "UPDATE users SET userRole = '1' WHERE id = :id;";
+
+        }else{
+
+            $sql = "UPDATE users SET userRole = null WHERE id = :id;";
+
+        }
+        
+        $args = ['id' => $id];
+        $this->db->runSQL($sql, $args)->execute();
+
+
+        $member = $this->get($id);
+       
+       
     }
 
 }

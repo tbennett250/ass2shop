@@ -1,13 +1,15 @@
 <?php
 require_once './inc/functions.php';
 
+
  $products =$controllers->products()->getAll();
 
 foreach ($products as $product):
 ?>
+<link href="css/style.css" rel="stylesheet">
     <div class="col-4">
-        <div class="card">
-            <img src="<?= $product['image'] ?>" 
+        <div class="card CardSizer" >
+            <img class="ProductImageCard src=" src="<?= $product['image'] ?>" 
                 class="card-img-top" 
                 alt="$product['name']">
             <div class="card-body">

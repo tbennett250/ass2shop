@@ -1,0 +1,26 @@
+.CardSizer{
+    height : 400px;
+    width : 225px;
+    margin: 30px
+}
+
+.ProductImageCard{
+    max-height: 225px;
+    max-width: 225px;
+}
+.btn-edit{
+    width: 20%;
+    display: inline;
+    margin: 10px;
+    min-height: 70px;
+   
+}
+
+.btn-delete-user{
+    background: #ff7851;
+
+}
+
+th{
+    text-align: center;
+}
