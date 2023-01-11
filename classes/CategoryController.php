@@ -38,6 +38,48 @@ class CategoryController
 
     }
 
+    public function ListDropdown(){
+        $categorys = $this->getAll();
+
+        foreach($categorys as $cat){
+            
+            echo '<option value="' . $cat['ID'] .'">' . $cat['title'] . "</option>";
+        }
+
+       
+    }
+
+    public function GetByProductFK($ProductFK){
+
+        $sql = "SELECT * FROM catproducts WHERE ProductFK = :ProductFK";
+        $args = ['ProductFK' => $ProductFK];
+
+        return $this->db->runSQL($sql, $args)->fetch();
+
+    }
+
+    public function DisplayCat($id){
+        $catProduct = $this->GetByProductFK($id);
+    }
+
+    public function SetCategory($catProduct){
+
+    }
+
+    public function assignCat($args){
+        $sql = "INSERT into catproducts(CategoryFK, ProductFK)
+                VALUES ( :CategoryFK,  :ProductFK);";
+                $this->db->runSQL($sql, $args);
+                return $this->db->lastInsertId();
+    }
+
+    public function UpdateCat($args){
+        $sql = "UPDATE catproducts
+                SET ProductFK = :ProductFK,
+                    CategoryFK = :CategoryFK
+                WHERE ID = :ID ";
+    }
+
 }
 
 
