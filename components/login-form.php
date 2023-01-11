@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 
 require_once './inc/functions.php';
 $message = '';
@@ -17,9 +17,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
       if (!$user) {
           $message = "Incorrect password and/or username";
-      }
-      else {
-          $_SESSION['username'] = $user['firstname'] .' '. $user['lastname'];
+      } else {
+          $_SESSION['user'] = $user['firstname'] .' '. $user['lastname'];
           $_SESSION['userRole'] = $user['userRole'];
           redirect('member');
       }
