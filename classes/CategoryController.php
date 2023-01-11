@@ -78,7 +78,11 @@ class CategoryController
                 SET ProductFK = :ProductFK,
                     CategoryFK = :CategoryFK
                 WHERE ID = :ID ";
+
+        $this->db->runSQL($sql, $args)->execute();
     }
+
+    
 
 }
 

@@ -6,17 +6,12 @@ $products = $controllers->products()->getAll();
 
 if($_SERVER['REQUEST_METHOD'] == 'POST')
 {
-
-    
     $args = ["ProductFK" => $_POST['productid'],
             "CategoryFK" => $_POST['cat']];
 
     var_dump($args);
 
     $controllers->category()->UpdateCat($args);
-
-
-
 }
 
 
@@ -47,11 +42,12 @@ foreach($products as $product):
 </td>
 
 <td><select name="cat" id="cat">
-    
-    <option> </option>
+    <?php $catprod = $controllers->category()->GetByProductFK($product['id']) ;
+    $SetCat = $controllers->category()->get($catprod['CategoryFK']) ?>
+    <option><i> SET AS : <?= $SetCat['title']?></i></option>
     <?= $controllers->category()->ListDropdown() ?>
 </select>
-<td> <button type="submit" class="btn"> Set category </button>
+<td> <button type="submit" class="btn"> Set Category </button>
 
 
 
