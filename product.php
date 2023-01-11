@@ -1,5 +1,5 @@
 <?php 
-session_start();
+
 require __DIR__ . "/inc/header.php"; ?>
 
 <section class="vh-100 text-center">

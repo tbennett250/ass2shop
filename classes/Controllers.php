@@ -5,6 +5,7 @@ class Controllers
     protected $db = null;
     protected $members = null;
     protected $products = null;
+    protected $category = null;
 
     public function __construct(string $dsn = null, string $username = null, string $password = null)
     {
@@ -40,6 +41,14 @@ class Controllers
         return $this->products;
     }
 
+
+    public function category()
+    {
+        if($this->category === null){
+            $this->category = new CategoryController($this->db);
+        }
+        return $this->category;
+    }
 }
 
 ?>

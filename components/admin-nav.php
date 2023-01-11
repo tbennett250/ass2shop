@@ -10,7 +10,7 @@
   <div class="" id="navbarNavAltMarkup">
     <div class="navbar-nav">
       <a class="nav-item nav-link " href="add-product.php">Add Product</a>
-      <a class="nav-item nav-link " href="product.php">Products</a>
+      <a class="nav-item nav-link " href="index.php">Products</a>
       <a class="nav-item nav-link" href="manage-users.php">Manage Users </a>
       <a class="nav-item nav-link" href="edit-products.php">Manage Products</a>
       <a class="nav-item nav-link" href="#">Manage Catagories</a>

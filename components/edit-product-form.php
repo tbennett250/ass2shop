@@ -16,12 +16,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     $name = InputProcessor::process_string($_POST['name'] ?? '');
     $description = InputProcessor::process_string($_POST['description'] ?? '');
     $price = InputProcessor::process_string($_POST['price'] ?? '');
-    var_dump($_FILES['image']);
-    if (isset($_FILES['image'])){
+    
+    if ($_FILES['image']['size'] > 0){
         //if image has been selected then validate
         $image = InputProcessor::process_file($_FILES['image'] ?? []);
     } else{
         //else use previous file path
+        var_dump("Here");
         $image['value'] = $SelectedProduct['image'];
         $image['valid'] = true;
     }
@@ -44,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
       
 
       $controllers->products()->update($args);
-     // redirect('edit-products');
+     redirect('edit-products');
 
 
             }

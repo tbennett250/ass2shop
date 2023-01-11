@@ -1,27 +1,22 @@
 <?php
 require_once './inc/functions.php';
 $message = '';
-$UserToEdit = $controllers->members()->get('15');
+$UserToEdit = $controllers->members()->get($_SESSION['userIDGET']);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
     $firstname = InputProcessor::process_string($_POST['firstname'] ?? '');
     $lastname = InputProcessor::process_string($_POST['lastname'] ?? '');
-    $email = InputProcessor::process_email($_POST['email']);
+    $email = InputProcessor::process_email($_POST['email'] ?? '');
 
     $valid = $firstname['valid'] && $lastname['valid'] && $email['valid'];
 
     if($valid){
          $args = [ 'firstname' => $firstname['value'],
                     'lastname' => $lastname['value'],
-                    'email' => $email['value']];
-                    
-
-        $sql = "UPDATE users 
-                SET firstname = :firstname
-                    lastname = :lastname, 
-                    email = :email, 
-                WHERE id = :id;";
+                    'password' => $UserToEdit['password'],
+                    'email' => $email['value'],
+                    'id' => $UserToEdit['id']];
 
 
        $process =  $controllers->members()->update($args);

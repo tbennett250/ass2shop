@@ -20,7 +20,7 @@ class Database extends PDO
         if(!$args) { return $this->query($sql); }
         $statement = $this->prepare($sql);
       
-        
+       
         $statement->execute($args);
         return $statement;
     }

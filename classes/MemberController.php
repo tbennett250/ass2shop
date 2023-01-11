@@ -63,10 +63,25 @@ class MemberController
                     email = :email
                 WHERE id = :id;";
 
-                
-    
         return $this->db->runSQL($sql, $member)->execute();
     }
+    
+    public function update_password(array $member){
+
+        //Hash password to store in database
+        $member['password'] = password_hash($member['password'], PASSWORD_DEFAULT);
+
+        
+        $sql = "UPDATE users
+                SET password = :password
+                WHERE id = :id";
+
+
+        return $this->db->runSQL($sql, $member);
+
+    }
+
+
 
     public function delete(int $id) : bool
     {
@@ -92,6 +107,8 @@ class MemberController
     }
 
     public function DisplayUserType($id){
+        //Changes the usertype from 1/NULL to Admin/Standard User
+
         if($id === '1')
         {
             return "<span class='text-danger'><b> Administrator </b> </span>";
@@ -102,11 +119,10 @@ class MemberController
 
     public function ChangeRole($id) {
         
-       
-       
+    
         
         $member = $this->get($id);
-
+        //if user is not admin, Set as admin. else change to normal user
         if ($member['userRole'] != '1'){
 
             $sql = "UPDATE users SET userRole = '1' WHERE id = :id;";

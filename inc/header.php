@@ -1,4 +1,20 @@
 <!doctype html>
+
+<?php
+session_start();
+include_once __DIR__ . '/functions.php';
+
+ if(isset($_SESSION['user'])){
+  //$Log = $_SESSION['user'] . " , <a class='nav-link' href='/inc/logout.php'> Log out </a>";
+  $Log = '<a class="nav-link" href="./logout.php"><i class="bi bi-door-closed" style="font-size: 2rem"></i></a> ';
+ } else {
+  $Log = '<a class="nav-link" href="./login.php"><i class="bi bi-person-circle" style="font-size: 2rem"></i></a>';
+ }
+
+
+?>
+
+
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -19,7 +35,8 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
             <li class="nav-item">
-                <a class="nav-link" href="./login.php"><i class="bi bi-person-circle" style="font-size: 2rem"></i></a>
+                <!-- <a class="nav-link" href="./login.php"><i class="bi bi-person-circle" style="font-size: 2rem"></i></a> -->
+                <?= $Log ?>
             </li>
           </ul>
     </div>
@@ -28,8 +45,8 @@
 
 <?php
 
-if(isset($_SESSION['userRole'])){
-  if($_SESSION['userRole'] = 1){
+if(isset($_SESSION['user'])){
+  if($_SESSION['user']['userRole'] = 1){
     require_once "./components/admin-nav.php";
 }
 }

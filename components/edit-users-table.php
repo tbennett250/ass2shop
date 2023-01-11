@@ -3,21 +3,40 @@
  
 
     //$controllers->members()->ChangeRole($id);
+    
  
 
     if(isset($_POST['btn-changeroll'])){
-        $test = $controllers->members()->ChangeRole($_POST['userid']);
-        var_dump($test);
+        $controllers->members()->ChangeRole($_POST['userid']);
     }
 
     if(isset($_POST['btn-edit-user-details'])){
+        //Gets ID of selected user and makes a session variable accessable in next webpage
         $_SESSION['userIDGET'] = $_POST['userid'];
         redirect('manage-users-edit-details');
     }
 
+    if(isset($_POST['btn-change-password'])){
+        $_SESSION['userIDGET'] = $_POST['userid'];
+        redirect('manage-users-change-password');
+    }
+
+    if(isset($_POST['btn-delete-user'])){
+        $_SESSION['userIDGET'] = $_POST['userid'];
+        redirect('manage-users-delete');
+    }
+
+    
+
+
 
 
 ?>
+
+<div>
+
+    <H1 class="text-danger"><?= isset($_GET['msg']) ? $message = $_GET['msg'] : ''  ?></h1>
+</div>
 
 <div style="padding:25px;">
 <table class="table table-light ">
@@ -39,6 +58,7 @@
 $users = $controllers->members()->getAll();
 
 foreach ($users as $user):
+    //Loop through members to create row in the tabl
 ?>
     <tr>
         <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="POST">
@@ -56,8 +76,8 @@ foreach ($users as $user):
         
         <td> 
             <button type="submit" class="btn btn-dark btn-edit" name="btn-edit-user-details"value="Edit User Details" id="<?= $user['id'] ?>" class="btn btn-secondary btn-edit" >Edit user details</button>
-            <button type="submit" class="btn btn-dark btn-edit" name="btn" value="Change Password">Change Password</button>
-            <button type="submit" class="btn btn-dark btn-edit" name="btn-changeroll" value="Change Permissions" onclick=""> Change User Type </button>
+            <button type="submit" class="btn btn-dark btn-edit" name="btn-change-password" value="Change Password">Change Password</button>
+            <button type="submit" class="btn btn-dark btn-edit" name="btn-changeroll" value="Change Permissions" onclick=""> Toggle User Type </button>
             <button type="submit" class="btn btn-dark btn-edit btn-delete-user" name="btn-delete-user" value="delete user" onclick=""> Delete User </button>
         </form>
     </tr>
@@ -66,6 +86,6 @@ foreach ($users as $user):
 <?php endforeach ?>
 
 
-?>
+
 </table>
 </div>

@@ -17,15 +17,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
       if (!$user) {
           $message = "Incorrect password and/or username";
-      } else {
-          $_SESSION['user'] = $user['firstname'] .' '. $user['lastname'];
-          $_SESSION['userRole'] = $user['userRole'];
-          redirect('member');
-      }
+        } else {
+            $_SESSION['user'] = $user;
+            redirect('member');
+        }
       
-    }
-
-    else {
+  } else {
        $message =  "Please fix the above errors. ";
    }
 
