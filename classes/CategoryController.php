@@ -77,12 +77,37 @@ class CategoryController
         $sql = "UPDATE catproducts
                 SET ProductFK = :ProductFK,
                     CategoryFK = :CategoryFK
-                WHERE ID = :ID ";
+                WHERE CatProductID = :CatProductID ";
 
         $this->db->runSQL($sql, $args)->execute();
     }
 
+    public function GetProductsByCategoryID($id){
+        
+        $sql =  "SELECT CategoryFK FROM catproducts WHERE ProductFK = :ProductFK";
+        $args = ["ProductFK" => $id];
+
+        return $this->db->runSQL($sql, $args)->fetch();
+
+    }
+
+    public function GetCategorysByProductID($id){
+        $sql = "SELECT ProductFK FROM catproducts WHERE CategoryFK = :CategoryFK";
+        $args = ["CategoryFK" => $id];
+
+        return $this->db->runSQL($sql, $args)->fetchAll();
+    }
+
+    public function GetCatTitleFromProductID($id){
+      $catID = $this->GetProductsByCategoryID($id);
+   
+      $cat = $this->get($catID['CategoryFK']);
+      
+
+      return $cat['title'];
     
+
+    }
 
 }
 

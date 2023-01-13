@@ -6,7 +6,7 @@ $SelectedCat = $controllers->category()->get(htmlspecialchars($_SESSION['categor
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $title = InputProcessor::process_string($_POST['name'] ?? '');
-        $description = InputProcessor::process_string($_POST['description']);
+        $description = InputProcessor::process_string($_POST['description'] ?? '');
 
         if($_FILES['image']['size'] > 0){
             $image = InputProcessor::process_file($_FILES['image'] ?? []);
@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="card shadow-2-strong" style="border-radius: 1rem;">
               <div class="card-body p-5 text-center">
     
-                <h3 class="mb-2">Add Product</h3>
+                <h3 class="mb-2">Edit Category</h3>
                 <div class="form-outline mb-4">
                   <input type="text" id="name" name="name" class="form-control form-control-lg" value="<?= $SelectedCat['title'] ?>" required  />
                   <span class="text-danger"><?= $name['error'] ?? '' ?></span>

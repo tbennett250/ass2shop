@@ -13,7 +13,7 @@
       <a class="nav-item nav-link " href="index.php">Products</a>
       <a class="nav-item nav-link" href="manage-users.php">Manage Users </a>
       <a class="nav-item nav-link" href="edit-products.php">Manage Products</a>
-      <a class="nav-item nav-link" href="#">Manage Catagories</a>
+      <a class="nav-item nav-link" href="category-manager.php">Manage Categories</a>
     </div>
   </div>
 </nav>

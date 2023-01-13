@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
           var_dump($args);
 
     $result = $controllers->category()->addNewCat($args);
-   // redirect('category-manager');
+    redirect('category-manager');
   }
 
 
@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             <div class="card shadow-2-strong" style="border-radius: 1rem;">
               <div class="card-body p-5 text-center">
     
-                <h3 class="mb-2">Add Product</h3>
+                <h3 class="mb-2">Add Category</h3>
                 <div class="form-outline mb-4">
                   <input type="text" id="name" name="name" class="form-control form-control-lg" placeholder="Category Name" required  />
                   <span class="text-danger"><?= $name['error'] ?? '' ?></span>

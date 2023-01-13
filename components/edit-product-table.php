@@ -18,6 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <th>Product Name</th>
     <th>Description</th>
     <th>Price</th>
+    <th>Category</th>
     <th>Image</th>
     <th> </th>
     <th> To Edit </th>
@@ -37,11 +38,15 @@ foreach ($products as $product):
         <td> <?= $product['name'];?> </td>
         <td> <?= $product['description']; ?> </td>
         <td> <?= $product['price']; ?> </td>
-        <td> <button type="button" onclick="ShowImage(<?= $product['id']; ?>)"> view image </button></td>
+        <td> <?= $controllers->category()->GetCatTitleFromProductID($product['id']) ?> </td>
+        <td> <button type="button" class="btn btn-secondary" onclick="ShowImage(<?= $product['id']; ?>)"> view image </button>
+      
+    </td>
         <td><img id=<?= $product['id']; ?> style="display: none;" width="150px" height="150px" src=<?= $product['image'] ?>></td>
         <input type="hidden" value="<?= $product['id'] ?>" name="productid"/>
         
         <td> <input type="submit" name="btn" value="Edit" id="<?= $product['id'] ?>" class="btn btn-secondary" >
+        <a href="" class="btn btn-danger"> Delete </a> </td>
         </form>
     </tr>
 

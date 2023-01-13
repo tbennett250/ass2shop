@@ -6,13 +6,15 @@ $message = '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
-
+  var_dump($_POST['SelectCat']);
     $name = InputProcessor::process_string($_POST['name'] ?? '');
     $description = InputProcessor::process_string($_POST['description'] ?? '');
     $price = InputProcessor::process_string($_POST['price'] ?? '');
     $image = InputProcessor::process_file($_FILES['image'] ?? []);
+    $category = InputProcessor::process_string($_POST['SelectCat']);
+    
 
-    $valid =  $name['valid'] && $description['valid'] && $price['valid'] && $image['valid'];
+    $valid =  $name['valid'] && $description['valid'] && $price['valid'] && $image['valid'] && $category['valid'];
   
     if($valid) {
 
@@ -25,9 +27,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
               ];
 
       $id = $controllers->products()->create($args);
+      
 
       if(!empty($id) && $id > 0) {
-        redirect('product', ['id' => $id]);
+
+          $CatArgs = ["ProductFK" => $id,
+                      "CategoryFK" => $category['value']];
+
+          $controllers->category()->assignCat($CatArgs);
+
+
+
+       redirect('product', ['id' => $id]);
       }
       else {
         $message = "Error adding product."; //Change
@@ -65,6 +76,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                 <div class="form-outline mb-4">
                   <input type="number" id="price" name="price" class="form-control form-control-lg" placeholder="Price" required value="<?= htmlspecialchars($price['value'] ?? '') ?>"/>
                   <span class="text-danger"><?= $price['error'] ?? '' ?></span>
+                </div>
+
+                <div class="form-outline mb-4">
+                    <select name="SelectCat" id="SelectCat" required>
+                    
+
+                    <option value="Assign Category" name="AssignCat"><i> Assign Category</i></option>
+
+                    <!--calls function which will automatically populate dropdown box -->
+                    <?= $controllers->category()->ListDropdown() ?>
+                    
+                  </select>
+
+
+
+
+
                 </div>
     
                 <div class="form-outline mb-4">

@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     
     if($valid) {
 
-      if(isset($_FILES['image']))
+      if($_FILES['image']['size'] > 0)
         {$image['value'] = ImageProcessor::upload($_FILES['image']);}
       
         $args = ['name' => $name['value'] , 
@@ -56,7 +56,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 ?>
 
   <form method="post" action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>" enctype="multipart/form-data">
-    <section class="vh-100">
+  
+  <section class="vh-100">
       <div class="container py-5 h-75">
         <div class="row d-flex justify-content-center align-items-center h-100">
           <div class="col-12 col-md-8 col-lg-6 col-xl-5">
