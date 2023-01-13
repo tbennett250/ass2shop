@@ -4,9 +4,20 @@ require_once './inc/functions.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
-    $productidGET = $_POST['productid'];
-    $_SESSION['productIDGET'] = $productidGET;
-    redirect("edit-product");
+
+    if(isset($_POST['btn-edit']))
+    {
+        $productidGET = $_POST['productid'];
+        $_SESSION['productIDGET'] = $productidGET;
+        redirect("edit-product");
+    }
+
+    if(isset($_POST['btn-delete']))
+    {
+        $_SESSION['productIDGET'] = $_POST['productid'];
+        redirect("edit-product-delete");
+
+    }
 }
 
 
@@ -45,8 +56,8 @@ foreach ($products as $product):
         <td><img id=<?= $product['id']; ?> style="display: none;" width="150px" height="150px" src=<?= $product['image'] ?>></td>
         <input type="hidden" value="<?= $product['id'] ?>" name="productid"/>
         
-        <td> <input type="submit" name="btn" value="Edit" id="<?= $product['id'] ?>" class="btn btn-secondary" >
-        <a href="" class="btn btn-danger"> Delete </a> </td>
+        <td> <input type="submit" name="btn-edit" value="Edit" id="<?= $product['id'] ?>" class="btn btn-secondary" >
+        <input type="submit" name="btn-delete" class="btn btn-danger" value="Delete">
         </form>
     </tr>
 

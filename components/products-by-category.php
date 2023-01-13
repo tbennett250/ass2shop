@@ -29,16 +29,36 @@ $productList = $controllers->category()->GetCategorysByProductID($category['ID']
 <?php
 
 
-
+$counter = null;
 foreach($productList as $product):
+
+    if($counter != null){
+        if($counter % 3 == 0)
+        {
+            echo "<div class='w-100 mt-5'></div>";
+        }
+    } else {
+        $counter = 0;
+    }
+
+
+
     $product = $controllers->products()->get($product['ProductFK']);
     ?>
     <link href="css/style.css" rel="stylesheet">
         <div class="col-4">
             <div class="card mt-4" style="height: 600px">
-                <img class="ProductImageCard" style="align: center;" src="<?= $product['image'] ?>" 
+                <img  src="<?= $product['image'] ?>" 
                     class="card-img-top" 
-                    alt="$product['name']">
+                    alt="$product['name']"
+                    style = "
+                        margin: auto;
+                        padding-top: 5px;
+                        max-height: 400px;
+                        max-width: 400px;
+                    
+                    "
+                    >
                 <div class="card-body">
                     <h5 class="card-title"><?= $product['name'] ?></h5>
                     <p class="card-text"><?= $product['description'] ?></p>
@@ -47,7 +67,14 @@ foreach($productList as $product):
             </div>
         </div>
     <?php 
+    $counter += 1;
     endforeach;
+
+    while($counter % 3 != 0) {
+        echo "<div class='col'></div>";
+        $counter += 1;
+    }
+
     ?>
     
     

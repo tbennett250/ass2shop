@@ -109,6 +109,12 @@ class CategoryController
 
     }
 
+    public function DeleteByProductID($id){
+        $sql = "DELETE FROM catproducts WHERE ProductFK = :ProductFK";
+        return $this->db->runSQL($sql, ['ProductFK' => $id])->execute();
+
+    }
+
 }
 
 
