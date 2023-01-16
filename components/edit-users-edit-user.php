@@ -1,16 +1,18 @@
 <?php
 require_once './inc/functions.php';
 $message = '';
+//get user to edit
 $UserToEdit = $controllers->members()->get($_SESSION['userIDGET']);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
+  //valdiate form data
     $firstname = InputProcessor::process_string($_POST['firstname'] ?? '');
     $lastname = InputProcessor::process_string($_POST['lastname'] ?? '');
     $email = InputProcessor::process_email($_POST['email'] ?? '');
 
     $valid = $firstname['valid'] && $lastname['valid'] && $email['valid'];
-
+//if all valid
     if($valid){
          $args = [ 'firstname' => $firstname['value'],
                     'lastname' => $lastname['value'],
@@ -18,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                     'email' => $email['value'],
                     'id' => $UserToEdit['id']];
 
-
+//update to DB and rediredt
        $process =  $controllers->members()->update($args);
        redirect('manage-users');
     }

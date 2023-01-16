@@ -2,13 +2,16 @@
 require_once './inc/functions.php';
 
 $message = '';
+//Gets the category to edit from the session variable
 $SelectedCat = $controllers->category()->get(htmlspecialchars($_SESSION['categoryIDGET']));
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  //validation methods to ensure no injection of code
         $title = InputProcessor::process_string($_POST['name'] ?? '');
         $description = InputProcessor::process_string($_POST['description'] ?? '');
-
+  //if there is a file set
         if($_FILES['image']['size'] > 0){
+          //process the image
             $image = InputProcessor::process_file($_FILES['image'] ?? []);
 
         } else {
@@ -17,13 +20,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $image['valid'] = true;
         }
 
-
+//if all valid
     $valid = $title['valid'] && $description['valid'] && $image['valid'];
 
     if($valid){
 
         if($_FILES['image']['size'] > 0)
         {
+          //if there is a file uploaded -> upload image and return file path.
             $image['value'] = ImageProcessor::upload($_FILES['image']);
         }
 
@@ -33,9 +37,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 'ID' => $SelectedCat['ID']
                 ];
 
-                var_dump($args);
+         //update in database with new args
 
         $controllers->category()->update($args);
+        //redirect back to category
         redirect('category-manager');
 
 }

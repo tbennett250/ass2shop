@@ -6,38 +6,43 @@ $message = '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
+
   var_dump($_POST['SelectCat']);
+  //input processor validates data in form
     $name = InputProcessor::process_string($_POST['name'] ?? '');
     $description = InputProcessor::process_string($_POST['description'] ?? '');
     $price = InputProcessor::process_string($_POST['price'] ?? '');
     $image = InputProcessor::process_file($_FILES['image'] ?? []);
     $category = InputProcessor::process_string($_POST['SelectCat']);
     
-
+ //if all are valid, then $valid ='s true
     $valid =  $name['valid'] && $description['valid'] && $price['valid'] && $image['valid'] && $category['valid'];
   
     if($valid) {
-
+//Uploads image and returns file path
       $image['value'] = ImageProcessor::upload($_FILES['image']);
       
+    //sets arguement for prepared statements in SQL  
       $args = ['name' => $name['value'] , 
               'description' => $description['value'] , 
               'price' => $price['value'] ,
               'image' =>  $image['value'] 
               ];
 
+      //Creates the product and returns the ID key
       $id = $controllers->products()->create($args);
       
-
+      //If ProductID is not empty and is > 0 (IS A ID)
       if(!empty($id) && $id > 0) {
 
+        //This assisngs the category to the product within the catproducts table
           $CatArgs = ["ProductFK" => $id,
                       "CategoryFK" => $category['value']];
 
           $controllers->category()->assignCat($CatArgs);
 
 
-
+        //Redirects to a page whre the product will be generated
        redirect('product', ['id' => $id]);
       }
       else {

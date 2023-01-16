@@ -1,15 +1,17 @@
 <?php
 require_once './inc/functions.php';
 $message = '';
+//gets user to edit
 $UserToEdit = $controllers->members()->get($_SESSION['userIDGET']);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
+  //process password
   $password = InputProcessor::process_password(($_POST['password'] ?? ''),( $_POST['v-password'] ?? ''));
 
 
   
-
+//if password is valid format, change.
     if($password['valid']){
          $args = [ 'password' => $password['value'],
                   'id' => $_SESSION['userIDGET']];

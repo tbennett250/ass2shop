@@ -1,25 +1,21 @@
-<script>
-
-  function ConfirmAlert(){
-    alert("User Deleted");
-  }
-
-
-</script>
-
 <?php
 require_once './inc/functions.php';
 $message = '';
+//gets the user to delete from session variable
 $UserToEdit = $controllers->members()->get($_SESSION['userIDGET']);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
+  // if user deletes:
   if(isset($_POST['delete'])){
+    //set message to confirm delete
     $msg = "User: " . $UserToEdit['email'] . " Has Been Deleted." ;
+    //delete user
     $controllers->members()->delete($_SESSION['userIDGET']);
+    //redirect back to manage-users page with the MSG that confirms deleted.
     redirect('manage-users', ["msg" => $msg]);
   }
-
+//if canceled redirect them to manage-users without any changes.
   if(isset($_POST['cancel'])){
     redirect('mange-users');
   }

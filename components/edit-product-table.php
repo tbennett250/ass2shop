@@ -4,7 +4,7 @@ require_once './inc/functions.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
-
+//if btn-edit selected, set session variable as that products ID and redirect to edit the product
     if(isset($_POST['btn-edit']))
     {
         $productidGET = $_POST['productid'];
@@ -14,6 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
     if(isset($_POST['btn-delete']))
     {
+//if btn-delete is selected -> redirect to confirm that they want to delete it.
         $_SESSION['productIDGET'] = $_POST['productid'];
         redirect("edit-product-delete");
 
@@ -38,12 +39,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 
 <?php
-
+//gets all products
 $products =$controllers->products()->getAll();
-
+//loops through produts
 foreach ($products as $product):
 ?>
     <tr>
+        <!--Creates form for products, within the table row -->
         <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="POST">
         <td> <?= $product['id']; ?> </td>
         <td> <?= $product['name'];?> </td>
@@ -54,6 +56,7 @@ foreach ($products as $product):
       
     </td>
         <td><img id=<?= $product['id']; ?> style="display: none;" width="150px" height="150px" src=<?= $product['image'] ?>></td>
+        <!-- Hidden inputs with the product ID -->
         <input type="hidden" value="<?= $product['id'] ?>" name="productid"/>
         
         <td> <input type="submit" name="btn-edit" value="Edit" id="<?= $product['id'] ?>" class="btn btn-secondary" >
@@ -68,6 +71,7 @@ foreach ($products as $product):
 
 <script>
     function ShowImage(id){
+        //Creates function that hides images in the table.
         var x = document.getElementById(id);
 
         if (x.style.display == "none"){

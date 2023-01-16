@@ -16,11 +16,13 @@
         redirect('manage-users-edit-details');
     }
 
+    //redirects to change password page
     if(isset($_POST['btn-change-password'])){
         $_SESSION['userIDGET'] = $_POST['userid'];
         redirect('manage-users-change-password');
     }
 
+    //redirects to delete user page
     if(isset($_POST['btn-delete-user'])){
         $_SESSION['userIDGET'] = $_POST['userid'];
         redirect('manage-users-delete');
@@ -58,7 +60,7 @@
 $users = $controllers->members()->getAll();
 
 foreach ($users as $user):
-    //Loop through members to create row in the tabl
+    //Loop through members to create row in the table
 ?>
     <tr>
         <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="POST">

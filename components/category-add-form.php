@@ -5,25 +5,25 @@
 $message = '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
-
+// checks form data and verfies that data is what it should be
   $title = InputProcessor::process_string($_POST['name'] ?? '');
   $description = InputProcessor::process_string($_POST['description'] ?? '');
   $image = InputProcessor::process_file($_FILES['image']);
-
+//if all valid
   $valid = $title['valid'] && $description['valid'] && $image['valid'];
 
   if($valid) {
 
-
+//upload image and return image path
     $image['value'] = ImageProcessor::upload($_FILES['image']);
-
+//arguments for prepared statements
     $args =  ['title' => $title['value'],
             'description' => $description['value'],
             'image' => $image['value']];
 
-          var_dump($args);
-
+//adds a new category using args
     $result = $controllers->category()->addNewCat($args);
+    //returns to category manager page
     redirect('category-manager');
   }
 

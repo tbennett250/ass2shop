@@ -1,36 +1,27 @@
 <?php
-require_once './inc/functions.php';
-$products = $controllers->products()->getAll();
+  require_once './inc/functions.php';
+  $products = $controllers->products()->getAll();
 
 
 
-if($_SERVER['REQUEST_METHOD'] == 'POST')
-{
+  if($_SERVER['REQUEST_METHOD'] == 'POST')
+  {
 
-  if(isset($_POST['btn-SetCat'])){
-    $CatKey =  $_POST['SelectCat'];
-    $ProdKey = $_POST['productid'];
-    $CatProdID = $_POST['hdn-catprodID'];
-
-
-    $args = ["ProductFK" => $ProdKey,
-            "CategoryFK" => $CatKey,
-            "CatProductID" => $CatProdID];
-
-            var_dump($args);
-
-    if ($controllers->category()->UpdateCat($args) === true){
-      redirect("product-assign-category");
+    if(isset($_POST['btn-SetCat'])){
+      //get variables from form data
+      $CatKey =  $_POST['SelectCat'];
+      $ProdKey = $_POST['productid'];
+      $CatProdID = $_POST['hdn-catprodID'];
+//create arguemnet to update categories
+      $args = ["ProductFK" => $ProdKey,
+              "CategoryFK" => $CatKey,
+              "CatProductID" => $CatProdID];
+//if successful redirect to page to refresh it
+      if ($controllers->category()->UpdateCat($args) === true){
+        redirect("product-assign-category");
+      }
     }
-
-
-
   }
-}
-    
-
-
-
 ?>
 
 

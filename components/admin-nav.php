@@ -1,5 +1,5 @@
 <?php 
-
+ // This is the navbar for all of admin controls
 ?>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light ">

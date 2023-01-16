@@ -10,9 +10,7 @@ $SelectedProduct = $controllers->products()->get(htmlspecialchars($_SESSION['pro
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
-
-  
-
+//Validates form data
     $name = InputProcessor::process_string($_POST['name'] ?? '');
     $description = InputProcessor::process_string($_POST['description'] ?? '');
     $price = InputProcessor::process_string($_POST['price'] ?? '');
@@ -31,10 +29,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     $valid =  $name['valid'] && $description['valid'] && $price['valid'] && $image['valid'];
     
     if($valid) {
-
+      //if image set in form
       if($_FILES['image']['size'] > 0)
+      //upload image
         {$image['value'] = ImageProcessor::upload($_FILES['image']);}
-      
+      //set arguements
         $args = ['name' => $name['value'] , 
                 'description' => $description['value'] , 
                 'price' => $price['value'] ,
@@ -43,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                 ];
 
       
-
+//update from arguements
       $controllers->products()->update($args);
      redirect('edit-products');
 

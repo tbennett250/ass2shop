@@ -4,21 +4,22 @@ require_once './inc/functions.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
-    var_dump($_POST['categoryid']);
+
+    //sets Session variable to enable cat to be edit on next apge
     $_SESSION['categoryIDGET'] = htmlspecialchars($_POST['categoryid']);
     redirect("category-edit");
 }
 
 
-
+//Gets all categories from the database.
 $categorys = $controllers->category()->getAll();
 
-
+//sets counter as null as there is 0 cards set.
 $counter = null;
 foreach($categorys as $category):
-
+//if counter is active and there is 3 cards, create new row
     if($counter != null){
-        //if counter/row is 3 set a new row
+        
         if($counter % 3 == 0){
             echo "<div class='w-100 mt-5'></div>";
         }

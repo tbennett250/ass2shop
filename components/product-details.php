@@ -1,10 +1,12 @@
 <?php
 require_once './inc/functions.php';
 
+//get id from GET header
 $id = $_GET['id'] ?? '';
 
+//if not empty
 if (!empty($id)) {
-
+//find product
     $product =$controllers->products()->get($id);
 
     if ($product): ?>

@@ -6,18 +6,21 @@ $message = '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
+  // validates data inputted in form
     $email = InputProcessor::process_email($_POST['email'] ?? '');
     $password = InputProcessor::process_password($_POST['password'] ?? '');
 
     $valid = $email['valid'] && $password['valid'];
-
+//if form data is vliad
     if ($valid) {
-       
+      //log users in 
       $user = $controllers->members()->login($email['value'], $password['value']);
 
+      //if user does not exist, display message
       if (!$user) {
           $message = "Incorrect password and/or username";
         } else {
+          //if true log them in
             $_SESSION['user'] = $user;
             redirect('member');
         }
