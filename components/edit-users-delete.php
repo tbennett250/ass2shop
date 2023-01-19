@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   }
 //if canceled redirect them to manage-users without any changes.
   if(isset($_POST['cancel'])){
-    redirect('mange-users');
+    redirect('manage-users');
   }
 }
 ?>
@@ -34,26 +34,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     
                 <h2 class="mb-2">Are you sure you want to delete the following user?</h2>
                 <div class="form-outline mb-4">
-                 
-    
-    
+              <!-- Posts basic user information in bootstrap card -->
                 <div class="form-outline mb-1">
                 <label><h3>Firstname: <?= htmlspecialchars($UserToEdit['firstname']) ?></h3></label>
-                
                 </div>
 
                 <div class="form-outline mb-1">
                 <label><h3>Lastname: <?= htmlspecialchars($UserToEdit['lastname'])  ?> </h3></label>
                 </div>
 
-                
                 <div class="form-outline mb-1">
+                  <!-- Uses Email as unique identifier for the user -->
                 <label><h3>Email Address:  <?= htmlspecialchars($UserToEdit['email'])  ?> </h3></label>
                 </div>
 
-
-
-    
                 <button class="btn btn-success btn-lg w-100 mb-4 " id="delete" name="delete" type="submit">Delete User</button>
                 <button class="btn btn-danger btn-lg w-100 mb-4" id="cancel" name="cancel" type="submit">Cancel</button>
                

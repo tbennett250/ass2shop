@@ -1,7 +1,7 @@
 <?php
 include_once __DIR__ . "/inc/header.php";
 include_once __DIR__ . "/inc/functions.php";
-//include_once __DIR__ . "/inc/admin-requirement.php";
+include_once __DIR__ . "/inc/admin-requirement.php";
 
 include_once __DIR__ . "/components/category-manager-toolbar.php";
 ?>

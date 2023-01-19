@@ -116,28 +116,19 @@ class MemberController
     }
 
     public function ChangeRole($id) {
-        
-    
-        
+ 
         $member = $this->get($id);
         //if user is not admin, Set as admin. else change to normal user
+        // 1 = admin, null = standard user
         if ($member['userRole'] != '1'){
-
             $sql = "UPDATE users SET userRole = '1' WHERE id = :id;";
-
         }else{
-
             $sql = "UPDATE users SET userRole = null WHERE id = :id;";
-
         }
         
         $args = ['id' => $id];
         $this->db->runSQL($sql, $args)->execute();
-
-
-        $member = $this->get($id);
-       
-       
+        $member = $this->get($id);       
     }
 
 }

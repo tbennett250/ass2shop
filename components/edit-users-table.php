@@ -7,6 +7,7 @@
  
 
     if(isset($_POST['btn-changeroll'])){
+        //changes role using changeRole in members controller
         $controllers->members()->ChangeRole($_POST['userid']);
     }
 

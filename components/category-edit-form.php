@@ -9,13 +9,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   //validation methods to ensure no injection of code
         $title = InputProcessor::process_string($_POST['name'] ?? '');
         $description = InputProcessor::process_string($_POST['description'] ?? '');
-  //if there is a file set
+  //if there is a file set in the form
         if($_FILES['image']['size'] > 0){
           //process the image
-            $image = InputProcessor::process_file($_FILES['image'] ?? []);
+            $image = InputProcessor::process_image($_FILES['image'] ?? []);
 
         } else {
-            //use previous file path
+            //use previous file path and set that the image is valid
             $image['value'] = $SelectedCat['image'];
             $image['valid'] = true;
         }
@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if($_FILES['image']['size'] > 0)
         {
-          //if there is a file uploaded -> upload image and return file path.
+          //if there is a file uploaded -> upload new image and return file path.
             $image['value'] = ImageProcessor::upload($_FILES['image']);
         }
 
@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <h3 class="mb-2">Edit Category</h3>
                 <div class="form-outline mb-4">
                   <input type="text" id="name" name="name" class="form-control form-control-lg" value="<?= $SelectedCat['title'] ?>" required  />
-                  <span class="text-danger"><?= $name['error'] ?? '' ?></span>
+                  <span class="text-danger"><?= $title['error'] ?? '' ?></span>
                 </div>
                 
                 <div class="form-outline mb-4">

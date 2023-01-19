@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 // checks form data and verfies that data is what it should be
   $title = InputProcessor::process_string($_POST['name'] ?? '');
   $description = InputProcessor::process_string($_POST['description'] ?? '');
-  $image = InputProcessor::process_file($_FILES['image']);
+  $image = InputProcessor::process_image($_FILES['image']);
 //if all valid
   $valid = $title['valid'] && $description['valid'] && $image['valid'];
 
@@ -45,6 +45,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     
                 <h3 class="mb-2">Add Category</h3>
                 <div class="form-outline mb-4">
+
+                  <!-- Form for adding category, Will display errors underneath form if information is incorrect. -->
                   <input type="text" id="name" name="name" class="form-control form-control-lg" placeholder="Category Name" required  />
                   <span class="text-danger"><?= $name['error'] ?? '' ?></span>
                 </div>
@@ -56,6 +58,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     
                 <div class="form-outline mb-4">
                   <input type="file" accept="image/*" id="image" name="image" class="form-control form-control-lg" placeholder="Change Image" />
+                  <!--ADDED SPAN CLASS FOR IMAGE ERROR since testing uploading .txt-->
+                  <span class="text-danger"><?= $image['error'] ?? ''?> </span>
                 </div>
     
                 <button class="btn btn-primary btn-lg w-100 mb-4" type="submit">Add Category</button>
