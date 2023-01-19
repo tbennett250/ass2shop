@@ -6,15 +6,13 @@ $message = '';
 
 $SelectedProduct = $controllers->products()->get(htmlspecialchars($_SESSION['productIDGET']));
 
-
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
 //Validates form data
     $name = InputProcessor::process_string($_POST['name'] ?? '');
     $description = InputProcessor::process_string($_POST['description'] ?? '');
     $price = InputProcessor::process_string($_POST['price'] ?? '');
-    
+    //if file is uploaded then the filesize would be greater than 0:
     if ($_FILES['image']['size'] > 0){
         //if image has been selected then validate
         $image = InputProcessor::process_file($_FILES['image'] ?? []);
@@ -25,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         $image['valid'] = true;
     }
     
-
+// if all input processers are valid then
     $valid =  $name['valid'] && $description['valid'] && $price['valid'] && $image['valid'];
     
     if($valid) {
@@ -63,6 +61,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
             <div class="card shadow-2-strong" style="border-radius: 1rem;">
               <div class="card-body p-5 text-center">
     
+
+              <!-- Form is populated with the data of the edited problem
+            if a error occurs  it will print it underneath the both
+          and then it will display the $name['value] instead -->
                 <h3 class="mb-2">Add Product</h3>
                 <div class="form-outline mb-4">
                   <input type="text" id="name" name="name" class="form-control form-control-lg" value="<?= $SelectedProduct['name'] ?>" required value="<?= htmlspecialchars($name['value'] ?? '') ?>"/>
