@@ -13,11 +13,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if($_FILES['image']['size'] > 0){
           //process the image
             $image = InputProcessor::process_image($_FILES['image'] ?? []);
-
+            
         } else {
             //use previous file path and set that the image is valid
+            
+
             $image['value'] = $SelectedCat['image'];
             $image['valid'] = true;
+            
         }
 
 //if all valid
@@ -41,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $controllers->category()->update($args);
         //redirect back to category
-        redirect('category-manager');
+        //redirect('category-manager');
 
 }
 
@@ -77,6 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
                 <div class="form-outline mb-4">
                   <input type="file" accept="image/*" id="image" name="image" class="form-control form-control-lg" placeholder="Change Image" />
+                  <span class="text-danger"><?= $image['error'] ?? '' ?> </span>
                 </div>
     
                 <button class="btn btn-primary btn-lg w-100 mb-4" type="submit">Make Changes</button>
