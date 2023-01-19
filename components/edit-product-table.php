@@ -25,6 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 ?>
 <div style="padding:25px;">
 <table class="table table-light ">
+    <!-- Sets Header for columns-->
 <tr>
     <th>ID</th>
     <th>Product Name</th>
@@ -36,8 +37,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <th> To Edit </th>
     
 </tr>
-
-
 <?php
 //gets all products
 $products =$controllers->products()->getAll();
@@ -50,7 +49,7 @@ foreach ($products as $product):
         <td> <?= $product['id']; ?> </td>
         <td> <?= $product['name'];?> </td>
         <td> <?= $product['description']; ?> </td>
-        <td> <?= $product['price']; ?> </td>
+        <td> £ <?= $product['price']; ?> </td>
         <td> <?= $controllers->category()->GetCatTitleFromProductID($product['id']) ?> </td>
         <td> <button type="button" class="btn btn-secondary" onclick="ShowImage(<?= $product['id']; ?>)"> view image </button>
       

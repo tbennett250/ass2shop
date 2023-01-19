@@ -17,9 +17,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
   if(isset($_POST['delete'])){
     $msg = "Product: " . $ProductToEdit['name'] . " Has Been Deleted." ;
-    var_dump($_SESSION['productIDGET']);
+    //This function deletes the product from the catProducts Table by the unique identifier 
+    //being the productID foreign key
+    //Due to relationship this needs to be deleted before the product can be deleted
     $controllers->category()->DeleteByProductID($_SESSION['productIDGET']);
+    //delete product
     $controllers->products()->delete($_SESSION['productIDGET']);
+    //redirect
     redirect('edit-product-table', ["msg" => $msg]);
   }
 
