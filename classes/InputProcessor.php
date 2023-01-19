@@ -34,7 +34,10 @@ class InputProcessor {
         $value = htmlspecialchars($password);
         $regex = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/';
 
-        if (preg_match($regex, $password) === false ) {
+        var_dump($value);
+        var_dump(preg_match($regex, $password));
+
+        if(preg_match($regex, $password) === 0 ) {
             return self::return_input(false, "Password must have a minimum of 8 characters, at least 1 uppercase letter, 1 lowercase letter, 1 number and 1 special character.");
         }
 

@@ -68,15 +68,13 @@ class MemberController
     
     public function update_password(array $member){
 
-        //Hash password to store in database
+        //Hash password to store in database soo it is secure
         $member['password'] = password_hash($member['password'], PASSWORD_DEFAULT);
-
-        
+        //prepared statement to prevent SQL injection
         $sql = "UPDATE users
                 SET password = :password
                 WHERE id = :id";
-
-
+        //Run SQL
         return $this->db->runSQL($sql, $member);
 
     }

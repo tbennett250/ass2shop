@@ -1,7 +1,7 @@
 <?php
 require_once './inc/functions.php';
 $message = '';
-//get user to edit
+//get user to edit from session variable
 $UserToEdit = $controllers->members()->get($_SESSION['userIDGET']);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
@@ -20,6 +20,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                     'email' => $email['value'],
                     'id' => $UserToEdit['id']];
 
+
+                    //
 //update to DB and rediredt
        $process =  $controllers->members()->update($args);
        redirect('manage-users');
@@ -39,8 +41,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     
                 <h3 class="mb-2">Edit User</h3>
                 <div class="form-outline mb-4">
+                  <!-- Sets teh value of the current user, therefor is user doesnt change the form, we can still use it in the form handling. -->
                     <label>Firstname</label>
                   <input type="text" id="firstname" name="firstname" class="form-control form-control-lg" value="<?= $UserToEdit['firstname'] ?>" required value="<?= htmlspecialchars($name['value'] ?? '') ?>"/>
+                  <!-- If input doesnt pass the valiadition checks it will display an error -->
                   <span class="text-danger"><?= $firstname['error'] ?? '' ?></span>
                 </div>
                 
