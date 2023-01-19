@@ -116,6 +116,17 @@ class InputProcessor {
         }
     }
 
+    public static function process_number($num) : array {
+        if(is_numeric($num)){
+            return self::return_input(true, $num);
+        }
+        else
+        {
+            return self::return_input(false, "A number is required");
+        }
+
+    }
+
 }
 
 

@@ -11,8 +11,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   //input processor validates data in form
     $name = InputProcessor::process_string($_POST['name'] ?? '');
     $description = InputProcessor::process_string($_POST['description'] ?? '');
-    $price = InputProcessor::process_string($_POST['price'] ?? '');
-    $image = InputProcessor::process_file($_FILES['image'] ?? []);
+    $price = InputProcessor::process_number($_POST['price'] ?? '');
+    //Changed from process_file to process_image
+    $image = InputProcessor::process_image($_FILES['image'] ?? []);
     $category = InputProcessor::process_string($_POST['SelectCat']);
     
  //if all are valid, then $valid ='s true
@@ -38,11 +39,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         //This assisngs the category to the product within the catproducts table
           $CatArgs = ["ProductFK" => $id,
                       "CategoryFK" => $category['value']];
-
           $controllers->category()->assignCat($CatArgs);
-
-
-        //Redirects to a page whre the product will be generated
+       //Redirects to a page whre the product will be generated
        redirect('product', ['id' => $id]);
       }
       else {
@@ -88,20 +86,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                     
 
                     <option value="Assign Category" name="AssignCat"><i> Assign Category</i></option>
-
                     <!--calls function which will automatically populate dropdown box -->
                     <?= $controllers->category()->ListDropdown() ?>
-                    
                   </select>
-
-
-
-
 
                 </div>
     
                 <div class="form-outline mb-4">
                   <input type="file" accept="image/*" id="image" name="image" class="form-control form-control-lg" placeholder="Select Image"required />
+                  <!--Added Span Class to present image -->
+                  <span class="text-danger"> <?= $image['error'] ?? '' ?> </span>
                 </div>
     
                 <button class="btn btn-primary btn-lg w-100 mb-4" type="submit">Add Product</button>

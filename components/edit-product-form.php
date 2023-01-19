@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 //Validates form data
     $name = InputProcessor::process_string($_POST['name'] ?? '');
     $description = InputProcessor::process_string($_POST['description'] ?? '');
-    $price = InputProcessor::process_string($_POST['price'] ?? '');
+    $price = InputProcessor::process_number($_POST['price'] ?? '');
     //if file is uploaded then the filesize would be greater than 0:
     if ($_FILES['image']['size'] > 0){
         //if image has been selected then validate
