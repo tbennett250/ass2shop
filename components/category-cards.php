@@ -10,10 +10,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     redirect("category-edit");
 }
 
-
 //Gets all categories from the database.
 $categorys = $controllers->category()->getAll();
-
 //sets counter as null as there is 0 cards set.
 $counter = null;
 foreach($categorys as $category):
@@ -28,7 +26,6 @@ foreach($categorys as $category):
         $counter = 0;
     }
 ?>
-
     <div class="col-md">
         <div class="card" style="height: 600px">
             <img src ="<?= $category['image'] ?>"
@@ -39,7 +36,6 @@ foreach($categorys as $category):
                     padding-top: 5px;
                     max-height: 400px;
                     max-width: 400px;
-                    
                 ">
 
                 <div class="card-body">
@@ -47,21 +43,19 @@ foreach($categorys as $category):
                     <p class="card-text"><?= $category['description'] ?></p>
                     <form method="POST">
                         <input type="hidden" value="<?= $category['ID']?>" name="categoryid"/>
-                        <input type="submit" class="btn btn-primary" id="<?= $category['id'] ?>" value="Edit">
+                        <input type="submit" class="btn btn-primary" id="<?= $category['ID'] ?>" value="Edit">
                     </form>
                 
                 </div>
         </div>
 </div>
        
-  
-
-
-
 <?php
 //if card has been made add iteration to counter
 $counter += 1;
+//end the loop through categories
 endforeach;
+//create columns until there is 3 cards in the column:
 while($counter % 3 != 0){
     echo "<div class='col'></div>";
     $counter += 1;

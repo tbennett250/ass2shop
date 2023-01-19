@@ -88,6 +88,34 @@ class InputProcessor {
 
     }
 
+    public static function process_image(array $file) : array {
+        //if file is empty return invalid
+        if(empty($file)){
+            return self::return_input(false, "File is Empty");
+        }
+        //get extension of file
+        $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
+        //array of valid extensions
+        $allowed_exts = ['jpeg', 'jpg', 'png', 'gif',];
+        //set a variable to turn on if image has been found
+        $ImageFound = null;
+        //for all extensions accepted see if it matches one on file
+        foreach ($allowed_exts as $ext){   
+            if($extension == $ext){
+                //if it does, then acceptable image value has been found
+                $ImageFound = True;
+            }
+        }
+
+        if ($ImageFound === True){
+            //return file path
+            return self::return_input(true, $file['name']);
+        } else {
+            //return error
+            return self::return_input(false, "Image File format not found.");
+        }
+    }
+
 }
 
 
