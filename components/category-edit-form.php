@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $controllers->category()->update($args);
         //redirect back to category
-        //redirect('category-manager');
+        redirect('category-manager');
 
 }
 

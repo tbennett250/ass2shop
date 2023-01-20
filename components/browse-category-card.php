@@ -47,7 +47,7 @@ foreach ($categorys as $category):
                     <p class="card-text"><?= $category['description'] ?></p>
                     <form method="POST">
                         <input type="hidden" value="<?= $category['ID']?>" name="categoryid"/>
-                        <input type="submit" class="btn btn-primary" id="<?= $category['id'] ?>" value="View Products">
+                        <input type="submit" class="btn btn-primary" id="<?= $category['ID'] ?>" value="View Products">
                     </form>
                 
                 </div>

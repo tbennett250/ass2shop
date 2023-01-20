@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     //delete product
     $controllers->products()->delete($_SESSION['productIDGET']);
     //redirect
-    redirect('edit-product-table', ["msg" => $msg]);
+    redirect('edit-products', ["msg" => $msg]);
   }
 
   if(isset($_POST['cancel'])){
